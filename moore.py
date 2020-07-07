@@ -10,23 +10,19 @@ Y = []
 
 # some numbers show up as 1,170,000,000 (commas)
 # some numbers have references in square brackets after them
+
+
+df = pd.read_csv('data/moore.csv', sep='\t', header=None, prefix='X')
+
 non_decimal = re.compile(r'[^\d]+')
+func = lambda x: int(non_decimal.sub('', x.split('[')[0]))
 
-# df = pd.read_csv('data/data_1d.csv', names=['X', 'Y'])
+df.X2 = df.X2.apply(func)    # X (year)
+df.X1 = df.X1.apply(func)    # Y
 
-# X, Y = df["X"], df["Y"]
+X = df.X2.to_numpy()
+Y = np.log(df.X1.to_numpy())
 
-for line in open('data/moore.csv'):
-    r = line.split('\t')
-
-    x = int(non_decimal.sub('', r[2].split('[')[0]))
-    y = int(non_decimal.sub('', r[1].split('[')[0]))
-    X.append(x)
-    Y.append(y)
-
-
-X = np.array(X)
-Y = np.array(Y)
 
 plt.scatter(X, Y)
 plt.show()
