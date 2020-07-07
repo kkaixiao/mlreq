@@ -32,9 +32,10 @@ plt.scatter(X, Y)
 plt.show()
 
 # copied from lr_1d.py
-denominator = X.dot(X) - X.mean() * X.sum()
-a = ( X.dot(Y) - Y.mean()*X.sum() ) / denominator
-b = ( Y.mean() * X.dot(X) - X.mean() * X.dot(Y) ) / denominator
+denominator = X.dot(X) - X.mean()*X.sum()
+
+a = (X.dot(Y) - Y.mean()*X.sum()) / denominator
+b = (Y.mean() * X.dot(X) - X.mean() * X.dot(Y)) / denominator
 
 # let's calculate the predicted Y
 Yhat = a*X + b
