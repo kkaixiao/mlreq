@@ -12,23 +12,25 @@ Y = []
 # some numbers have references in square brackets after them
 
 
-df = pd.read_csv('data/moore.csv', sep='\t', header=None, prefix='X')
+df = pd.read_csv('data/moore.csv', sep='\t', header=None, prefix='Col')
 
 non_decimal = re.compile(r'[^\d]+')
 func = lambda x: int(non_decimal.sub('', x.split('[')[0]))
 
-df.X2 = df.X2.apply(func)    # X (year)
-df.X1 = df.X1.apply(func)    # Y
+X = df.Col2.apply(func)    # X (year)
+Y = df.Col1.apply(func)    # Y
 
-X = df.X2.to_numpy()
-Y = np.log(df.X1.to_numpy())
+# X = X.to_numpy()
+# Y = np.log(Y.to_numpy())
 
 
 plt.scatter(X, Y)
+plt.grid(alpha=0.2)
 plt.show()
 
 Y = np.log(Y)
 plt.scatter(X, Y)
+plt.grid(alpha=0.2)
 plt.show()
 
 # copied from lr_1d.py
@@ -37,11 +39,20 @@ denominator = X.dot(X) - X.mean()*X.sum()
 a = (X.dot(Y) - Y.mean()*X.sum()) / denominator
 b = (Y.mean() * X.dot(X) - X.mean() * X.dot(Y)) / denominator
 
-# let's calculate the predicted Y
+# for line in open('data/moore.csv'):
+#     r = line.split('\t')
+#
+#     x = int(non_decimal.sub('', r[2].split('[')[0]))
+#     y = int(non_decimal.sub('', r[1].split('[')[0]))
+#     X.append(x)
+#     Y.append(y)
+
+# to alculate the predicted Y
 Yhat = a*X + b
 
 plt.scatter(X, Y)
-plt.plot(X, Yhat)
+plt.plot(X, Yhat, color='red')
+plt.grid(alpha=0.2)
 plt.show()
 
 # determine how good the model is by computing the r-squared
