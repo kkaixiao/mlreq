@@ -13,13 +13,13 @@ X, Y = df["X"], df["Y"]
 
 a = b = 0
 
-learningRate, epochs, n = 0.0001, 100000, len(X)
+learningRate, epochs, n = 0.0001, 10000, len(X)
 
-cost, prevDerivativeA, derivativeA = 0.0000001, float('inf'), 0
+convergeCriteria, prevDerivativeA, derivativeA = 0.1e-7, float('inf'), 0
 
-# if change of 'derivativeA' can not converge to the set value of 'cost',
+# if change of 'derivativeA' can not converge to the set value of 'convergeCriteria',
 # stop iteration after times of epochs
-while abs(prevDerivativeA - derivativeA) > cost and epochs > 0:
+while abs(prevDerivativeA - derivativeA) > convergeCriteria and epochs > 0:
     Yhat = a*X + b
     prevDerivativeA = derivativeA
     derivativeA = -2 * (X * (Y - Yhat)).mean()
