@@ -20,9 +20,14 @@ func = lambda x: int(non_decimal.sub('', x.split('[')[0]))
 X = df.Col2.apply(func)    # X (year)
 Y = df.Col1.apply(func)    # Y
 
-# X = X.to_numpy()
-# Y = np.log(Y.to_numpy())
-
+# replaced the following lines with Pandas operation
+# for line in open('data/moore.csv'):
+#     r = line.split('\t')
+#
+#     x = int(non_decimal.sub('', r[2].split('[')[0]))
+#     y = int(non_decimal.sub('', r[1].split('[')[0]))
+#     X.append(x)
+#     Y.append(y)
 
 plt.scatter(X, Y)
 plt.grid(alpha=0.2)
@@ -38,14 +43,6 @@ denominator = X.dot(X) - X.mean()*X.sum()
 
 a = (X.dot(Y) - Y.mean()*X.sum()) / denominator
 b = (Y.mean() * X.dot(X) - X.mean() * X.dot(Y)) / denominator
-
-# for line in open('data/moore.csv'):
-#     r = line.split('\t')
-#
-#     x = int(non_decimal.sub('', r[2].split('[')[0]))
-#     y = int(non_decimal.sub('', r[1].split('[')[0]))
-#     X.append(x)
-#     Y.append(y)
 
 # to alculate the predicted Y
 Yhat = a*X + b
