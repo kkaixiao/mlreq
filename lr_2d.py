@@ -9,19 +9,13 @@ import matplotlib.pyplot as plt
 X = []
 Y = []
 
-# for line in open('data/data_2d.csv'):
-#     x1, x2, y = line.split(',')
-#     X.append([float(x1), float(x2), 1]) # add the bias term
-#     Y.append(float(y))
 
-# df = pd.read_csv('data/data_2d.csv', names = ['x1', 'x2', 'y'])
 df = pd.read_csv('data/data_2d.csv', sep=',', header=None, prefix='Col')
-# print(df)
-# X = df['Col0'] + df['Col1']
+
 
 X = pd.concat([df['Col0'], df['Col1']], axis = 1)
 Y = df['Col2']
-# Y = np.array(y)
+
 # # let's turn X and Y into numpy arrays since that will be useful later
 X = np.array(X)
 Y = np.array(Y)
