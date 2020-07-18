@@ -12,7 +12,10 @@ Y = []
 
 df = pd.read_csv('data/data_2d.csv', sep=',', header=None, prefix='Col')
 
-X = pd.concat([df['Col0'], df['Col1']], axis=1)
+# create a bias
+bias = pd.Series([1]*len(df['Col1']))
+
+X = pd.concat([df['Col0'], df['Col1'], bias], axis=1)
 Y = df['Col2']
 
 # see what data looks like
