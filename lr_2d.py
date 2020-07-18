@@ -1,7 +1,7 @@
 
 import numpy as np
 import pandas as pd
-from mpl_toolkits.mplot3d import Axes3D
+
 import matplotlib.pyplot as plt
 
 
@@ -12,27 +12,17 @@ Y = []
 
 df = pd.read_csv('data/data_2d.csv', sep=',', header=None, prefix='Col')
 
-
-X = pd.concat([df['Col0'], df['Col1']], axis = 1)
+X = pd.concat([df['Col0'], df['Col1']], axis=1)
 Y = df['Col2']
 
-# # let's turn X and Y into numpy arrays since that will be useful later
-X = np.array(X)
-Y = np.array(Y)
-
-
-# let's plot the data to see what it looks like
+# see what data looks like
 fig = plt.figure()
 ax = fig.add_subplot(111, projection='3d')
-ax.scatter(X[:,0], X[:,1], Y)
+ax.scatter(np.array(X)[:,0], np.array(X)[:,1], np.array(Y))
 plt.show()
 
 
-# apply the equations we learned to calculate a and b
-# numpy has a special method for solving Ax = b
-# so we don't use x = inv(A)*b
-# note: the * operator does element-by-element multiplication in numpy
-#       np.dot() does what we expect for matrix multiplication
+# use np function to solve the question to find out weights
 w = np.linalg.solve(np.dot(X.T, X), np.dot(X.T, Y))
 Yhat = np.dot(X, w)
 
